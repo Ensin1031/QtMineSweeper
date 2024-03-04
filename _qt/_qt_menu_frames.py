@@ -1,13 +1,20 @@
 from typing import Optional
 
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtCore
 
 from utils import WindowMixin, GameParamsType, GameModeEnum
 
-FormClass, _ = uic.loadUiType('_qt/_qt_designer/_params_window.ui')
+ParamsFormClass, _ = uic.loadUiType('_qt/_qt_designer/_params_window.ui')
+InfoFormClass, _ = uic.loadUiType('_qt/_qt_designer/_info_window.ui')
 
 
-class ParamsQDialog(QtWidgets.QDialog, FormClass, WindowMixin):
+class InfoQDialogMixin(QtWidgets.QDialog, InfoFormClass, WindowMixin):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.setupUi(self)
+
+
+class ParamsQDialog(QtWidgets.QDialog, ParamsFormClass, WindowMixin):
     def __init__(self, parent, game_settings_method):
         super().__init__(parent)
         self.setupUi(self)
@@ -19,21 +26,21 @@ class ParamsQDialog(QtWidgets.QDialog, FormClass, WindowMixin):
 
         self.buttonGroup.buttonClicked.connect(lambda x: self.__set_clicked_radiobutton(x))
 
-        self.checkBoxAnimation.clicked.connect(self.__set_clicked_checkboxes)
-        self.checkBoxSound.clicked.connect(self.__set_clicked_checkboxes)
-        self.checkBoxHelp.clicked.connect(self.__set_clicked_checkboxes)
-        self.checkBoxContinueSavedGame.clicked.connect(self.__set_clicked_checkboxes)
-        self.checkBoxSavedGame.clicked.connect(self.__set_clicked_checkboxes)
-        self.checkBoxQuestionMarks.clicked.connect(self.__set_clicked_checkboxes)
-        self.checkBoxIAmWoodpecker.clicked.connect(self.__set_clicked_checkboxes)
+        self.checkBoxAnimation.clicked.connect(self.__set_clicked_values_settings)
+        self.checkBoxSound.clicked.connect(self.__set_clicked_values_settings)
+        self.checkBoxHelp.clicked.connect(self.__set_clicked_values_settings)
+        self.checkBoxContinueSavedGame.clicked.connect(self.__set_clicked_values_settings)
+        self.checkBoxSavedGame.clicked.connect(self.__set_clicked_values_settings)
+        self.checkBoxQuestionMarks.clicked.connect(self.__set_clicked_values_settings)
+        self.checkBoxIAmWoodpecker.clicked.connect(self.__set_clicked_values_settings)
 
-        self.spinBoxHeight.valueChanged.connect(self.__set_clicked_checkboxes)
-        self.spinBoxWidth.valueChanged.connect(self.__set_clicked_checkboxes)
-        self.spinBoxCountMines.valueChanged.connect(self.__set_clicked_checkboxes)
+        self.spinBoxHeight.valueChanged.connect(self.__set_clicked_values_settings)
+        self.spinBoxWidth.valueChanged.connect(self.__set_clicked_values_settings)
+        self.spinBoxCountMines.valueChanged.connect(self.__set_clicked_values_settings)
 
         self.exec()
 
-    def __set_clicked_checkboxes(self):
+    def __set_clicked_values_settings(self):
         if self.__new_settings is None:
             return
         self.__new_settings = GameParamsType(
@@ -145,3 +152,45 @@ class ParamsQDialog(QtWidgets.QDialog, FormClass, WindowMixin):
                 need_sound=self.game_settings.need_sound,
                 i_am_woodpecker=self.game_settings.i_am_woodpecker,
             )
+
+
+class HelpGameQDialog(InfoQDialogMixin):
+
+    def start(self):
+        self.setWindowTitle("Справка")
+        self.exec()
+
+
+class AboutGameQDialog(InfoQDialogMixin):
+
+    def start(self):
+        self.setWindowTitle("О программе")
+        new_text = QtWidgets.QLabel(parent=self.widgetInfo)
+        new_text.setText(f"Сюда обычно никто не заглядывает,\n"
+                         f"поэтому можно нести всякую хрень!\n\n"
+                         f"Эту игру я написал самолично со скуки\n"
+                         f"хотелось, знаете-ли нормальный\n"
+                         f"Сапер под Линух!\n\n"
+                         f"С уважением, Ensin.\n\n"
+                         f"Щучу! Без уважения!!\n\n"
+                         f"Версия игры {self.program_version}, 2024г.")
+        new_text.move(35, 0)
+        new_text.setAlignment(QtCore.Qt.AlignCenter)
+        self.exec()
+
+
+class OtherGamesQDialog(InfoQDialogMixin):
+
+    def start(self):
+        self.setWindowTitle("Другие игры в Интернете")
+        new_text = QtWidgets.QLabel(parent=self.widgetInfo)
+        new_text.setText("Вот скажи, дятел, что ты\n"
+                         "ожидал тут увидеть?\n\n"
+                         "Хочешь других игр,\n"
+                         "собака неблагодарная?!\n"
+                         "А вот хрен тебе!\n\n"
+                         "С уважением, Ensin.\n"
+                         "Щучу, щучу! Без уважения!!\n\n")
+        new_text.move(75, 0)
+        new_text.setAlignment(QtCore.Qt.AlignCenter)
+        self.exec()
