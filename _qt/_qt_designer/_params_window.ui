@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Params</class>
+ <widget class="QDialog" name="Params">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>432</width>
+    <height>572</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>530</y>
+     <width>171</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+   </property>
+   <property name="centerButtons">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>19</x>
+     <y>19</y>
+     <width>391</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <widget class="QRadioButton" name="radioButtonNewbie">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="toolTipDuration">
+     <number>0</number>
+    </property>
+    <property name="text">
+     <string>Новичек
+10 мин
+поле 9х9 ячеек</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="radioButtonAmateur">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>90</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="toolTipDuration">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>Любитель
+40 мин
+поле 16х16 ячеек</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="radioButtonProfessional">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="toolTipDuration">
+     <number>2</number>
+    </property>
+    <property name="text">
+     <string>Профессионал
+99 мин
+поле 16х30 ячеек</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="radioButtonSpecial">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>20</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="toolTipDuration">
+     <number>3</number>
+    </property>
+    <property name="text">
+     <string>Особый</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QSplitter" name="splitterCountMines">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>140</y>
+      <width>191</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <widget class="QLabel" name="labelCountMines">
+     <property name="text">
+      <string>Число мин (10-700)</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBoxCountMines">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>63</horstretch>
+       <verstretch>26</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="sizeIncrement">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="minimum">
+      <number>10</number>
+     </property>
+     <property name="maximum">
+      <number>700</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QSplitter" name="splitterHeight">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>60</y>
+      <width>191</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <widget class="QLabel" name="labelHeight">
+     <property name="text">
+      <string>Ширина (9-40)    </string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBoxHeight">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>63</horstretch>
+       <verstretch>26</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="sizeIncrement">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="minimum">
+      <number>9</number>
+     </property>
+     <property name="maximum">
+      <number>40</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QSplitter" name="splitterWidth">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>100</y>
+      <width>191</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <widget class="QLabel" name="labelWidth">
+     <property name="text">
+      <string>Высота (9-30)      </string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBoxWidth">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>63</horstretch>
+       <verstretch>26</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="sizeIncrement">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>63</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="minimum">
+      <number>9</number>
+     </property>
+     <property name="maximum">
+      <number>30</number>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>10</y>
+     <width>58</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Уровень</string>
+   </property>
+  </widget>
+  <widget class="QSplitter" name="splitterBoolParams">
+   <property name="geometry">
+    <rect>
+     <x>17</x>
+     <y>231</y>
+     <width>401</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <widget class="QCheckBox" name="checkBoxAnimation">
+    <property name="text">
+     <string>Воспроизводить анимацию</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxSound">
+    <property name="text">
+     <string>Звуковое сопровождение</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxHelp">
+    <property name="text">
+     <string>Подсказывать подсказки</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxContinueSavedGame">
+    <property name="text">
+     <string>Всегда продолжать сохраненную игру</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxSavedGame">
+    <property name="text">
+     <string>Всегда сохранять игру при выходе</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxQuestionMarks">
+    <property name="text">
+     <string>Знаки вопроса при двойном щелчке правой кнопкой мыши</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBoxIAmWoodpecker">
+    <property name="text">
+     <string>Я дятел!</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Params</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>360</x>
+     <y>434</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Params</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>360</x>
+     <y>440</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
+</ui>

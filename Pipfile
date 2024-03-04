@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+tk = "*"
+pyqt5 = "==5.15.7"
+pyqt5-stubs = "==5.15.6.0"
+pyqt5-tools = "==5.15.4.3.0.3"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
