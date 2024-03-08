@@ -8,7 +8,8 @@ from PyQt5 import uic, QtWidgets, QtCore
 from _db import Connection
 from _qt._qt_menu_frames import ParamsQDialog, HelpGameQDialog, AboutGameQDialog, OtherGamesQDialog
 from utils import (
-    WindowMixin, GameParamsType, BTN_SIZE, FRAME_MARGIN_SIZE, INFO_FRAME_WIDTH, MineButton, iconFromBase64, SVGImages
+    WindowMixin, GameParamsType, BTN_SIZE, FRAME_MARGIN_SIZE, INFO_FRAME_WIDTH, MineButton, iconFromBase64, SVGImages,
+    MAIN_FRAME_COLOR, BTN_CLOSE_COLOR, BTN_OPEN_COLOR
 )
 
 FormClass, _ = uic.loadUiType('_qt/_qt_designer/_main_window.ui')
@@ -75,14 +76,14 @@ class MainWindow(QtWidgets.QMainWindow, FormClass, WindowMixin):
 
     def __create_main_game_frame(self):
         self.frameMainGame = QtWidgets.QFrame(parent=self)
-        self.frameMainGame.setStyleSheet("background-color: #151a21;")
+        self.frameMainGame.setStyleSheet(f"background-color: {MAIN_FRAME_COLOR};")
         self.frameMainGame.setGeometry(FRAME_MARGIN_SIZE, FRAME_MARGIN_SIZE * 2, FRAME_MARGIN_SIZE, FRAME_MARGIN_SIZE)
         self.frameMainGame.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.frameMainGame.show()
 
     def start(self):
 
-        self.frameMainGame.setStyleSheet("background-color: #151a21;")
+        self.frameMainGame.setStyleSheet(f"background-color: {MAIN_FRAME_COLOR};")
 
         self.action_01_new_game.triggered.connect(lambda x: self.reboot_game(self.game_settings))
         self.action_02_statistics.triggered.connect(self.__statistics_dialog)
@@ -161,7 +162,7 @@ class MainWindow(QtWidgets.QMainWindow, FormClass, WindowMixin):
                 has_bomb=btn_id in self.__bomb_idx
             )
 
-            btn.setStyleSheet("background-color: #3044b5;")
+            btn.setStyleSheet(f"background-color: {BTN_CLOSE_COLOR};")
             btn.setGeometry(BTN_SIZE * (column_index - 1), BTN_SIZE * (row_index - 1), BTN_SIZE, BTN_SIZE)
             btn.show()
             btn_id += 1
@@ -172,20 +173,19 @@ class MainWindow(QtWidgets.QMainWindow, FormClass, WindowMixin):
 
     def __mine_left_click_event(self, btn: MineButton):
         print('__push_left_click ===', btn, btn.has_bomb, btn.bt_id, btn.count_bombs_around)
-        if not btn.has_flag:
-            btn.setCheckable(True)
-            btn.is_empty_pressed = True
-            if btn.has_bomb:
-                btn.setIcon(iconFromBase64(SVGImages.MINE))
-                btn.setIconSize(self.__icon_size)
-                self.game_over(fail=True)
-            elif btn.count_bombs_around > 0:
-                btn.setIcon(btn.number_icon)
-                btn.setIconSize(self.__icon_size)
-                btn.setStyleSheet('background-color: #bac6dc;')
-            else:
-                btn.setStyleSheet('background-color: #bac6dc;')
-                btn.update_btn_neighbors()
+        btn.setCheckable(True)
+        btn.is_empty_pressed = True
+        if btn.has_bomb:
+            btn.setIcon(iconFromBase64(SVGImages.MINE))
+            btn.setIconSize(self.__icon_size)
+            self.game_over(fail=True)
+        elif btn.count_bombs_around > 0:
+            btn.setIcon(btn.number_icon)
+            btn.setIconSize(self.__icon_size)
+            btn.setStyleSheet(f'background-color: {BTN_OPEN_COLOR};')
+        else:
+            btn.setStyleSheet(f'background-color: {BTN_OPEN_COLOR};')
+            btn.update_btn_neighbors()
 
     def __mine_right_click_event(self, btn: MineButton):
         print('__push_right_click ===', btn, btn.has_bomb, btn.bt_id, btn.count_bombs_around)
