@@ -1,9 +1,10 @@
+from typing import Union
+
 
 class SVGImages:
 
     TIMER = """
-        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-        <!-- Generator: Adobe Illustrator 12.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 51448)  -->
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:cc="http://web.resource.org/cc/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns1="http://sozi.baierouge.fr" id="Layer_1" style="enable-background:new 0 0 136.926 136.921" sodipodi:docname="orologio_da_parete_arch_01r.svg" space="preserve" viewBox="0 0 136.926 136.921" sodipodi:version="0.32" version="1.1" inkscape:output_extension="org.inkscape.output.svg.inkscape" inkscape:version="0.45.1" sodipodi:docbase="/Users/johnolsen/Desktop/openclipart-0.20-pre/recovered-zerobyte-files/signs_and_symbols/clocks">
           <sodipodi:namedview id="base" bordercolor="#666666" inkscape:pageshadow="2" inkscape:window-width="787" pagecolor="#ffffff" inkscape:zoom="2.6292533" inkscape:window-x="44" borderopacity="1.0" inkscape:current-layer="Layer_1" inkscape:cx="68.462997" inkscape:cy="68.460503" inkscape:window-y="58" inkscape:window-height="510" inkscape:pageopacity="0.0"/>
           <g id="g3">
@@ -63,26 +64,21 @@ class SVGImages:
     """
 
     PLAY = """
-        <?xml version="1.0" standalone="no"?>
-        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
-        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">  
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> 
             <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/> 
         </svg>  
     """
 
     PAUSE = """
-        <?xml version="1.0" standalone="no"?>
-        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
-        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">  
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16"> 
             <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/> 
         </svg>  
     """
 
     FLAG_RED = """
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="256px" height="256px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g><path style="opacity:0.216" fill="#020000" d="M 175.5,255.5 C 168.833,255.5 162.167,255.5 155.5,255.5C 142.353,254.21 129.687,250.71 117.5,245C 103.229,237.188 99.0621,225.688 105,210.5C 106.833,208.667 108.667,206.833 110.5,205C 120.08,200.141 129.747,195.474 139.5,191C 142.768,189.85 146.101,189.016 149.5,188.5C 149.667,176.829 149.5,165.162 149,153.5C 113.414,131.955 77.5805,110.789 41.5,90C 36.962,88.2871 35.462,85.1205 37,80.5C 73.249,57.6239 109.749,35.1239 146.5,13C 148.427,9.44359 150.427,5.94359 152.5,2.5C 163.489,-2.66445 170.989,0.335545 175,11.5C 177.15,20.0286 178.483,28.6953 179,37.5C 181.521,72.9397 180.521,108.273 176,143.5C 175.058,146.993 173.725,150.326 172,153.5C 171.333,165.167 171.333,176.833 172,188.5C 184.867,194.463 197.7,200.63 210.5,207C 219.918,215.488 222.085,225.655 217,237.5C 211.59,244.124 204.756,248.624 196.5,251C 189.43,252.845 182.43,254.345 175.5,255.5 Z"/></g>
         <g><path style="opacity:1" fill="#302f30" d="M 166.5,6.5 C 162.4,6.23674 158.4,6.57007 154.5,7.5C 155.019,4.22507 157.019,2.89174 160.5,3.5C 163.393,3.06889 165.393,4.06889 166.5,6.5 Z"/></g>
@@ -130,8 +126,7 @@ class SVGImages:
     """
 
     ONE = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_429_11003)">
                 <path d="M12 20V4L9 7" stroke="#4352BE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -145,8 +140,7 @@ class SVGImages:
     """
 
     TWO = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_429_10997)">
                 <path d="M8 8C8 6.97631 8.39052 5.95262 9.17157 5.17157C10.7337 3.60947 13.2663 3.60947 14.8284 5.17157C16.3905 6.73366 16.3905 9.26632 14.8284 10.8284L9.17157 16.4853C8.42143 17.2354 8 18.2528 8 19.3137L8 20L16 20" stroke="#1E6901" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -160,8 +154,7 @@ class SVGImages:
     """
 
     THREE = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_429_10996)">
                 <path d="M8 19.0004C8.83566 19.6281 9.87439 20 11 20C13.7614 20 16 17.7614 16 15C16 12.2386 13.7614 10 11 10L16 4H8" stroke="#B20508" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -175,8 +168,7 @@ class SVGImages:
     """
 
     FOUR = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_429_11105)">
                 <path d="M10 4L8.47845 11.6078C8.23093 12.8453 9.17752 14 10.4396 14H16M16 14V8M16 14V20" stroke="#030483" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -190,8 +182,7 @@ class SVGImages:
     """
 
     FIVE = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_429_10995)">
                 <path d="M8 19.0004C8.83566 19.6281 9.87439 20 11 20C13.7614 20 16 17.7614 16 15C16 12.2386 13.7614 10 11 10C9.87439 10 8.83566 10.3719 8 10.9996L9 4H16" stroke="#7C0000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -205,8 +196,7 @@ class SVGImages:
     """
 
     SIX = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_429_11176)">
                 <path d="M13 4L7.77313 12.3279M17 15C17 17.7614 14.7614 20 12 20C9.23858 20 7 17.7614 7 15C7 12.2386 9.23858 10 12 10C14.7614 10 17 12.2386 17 15Z" stroke="#04787E" stroke-width="2.5" stroke-linecap="round"/>
@@ -220,8 +210,7 @@ class SVGImages:
     """
 
     SEVEN = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_429_11190)">
                 <path d="M8 4H16L10 20" stroke="#292929" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -235,8 +224,7 @@ class SVGImages:
     """
 
     EIGHT = """
-        <?xml version="1.0" encoding="utf-8"?>
-        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <!-- icon666.com - MILLIONS vector ICONS FREE -->
         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_429_10994)">
                 <circle cx="12" cy="15" r="5" stroke="#000000" stroke-width="2.5" stroke-linejoin="round"/>
@@ -249,3 +237,19 @@ class SVGImages:
             </defs>
         </svg>
     """
+
+    @classmethod
+    def get_number_icon(cls, value: Union['1' or '2' or '3' or '4' or '5' or '6' or '7' or '8']) -> Union[
+        'SVGImages.ONE' or 'SVGImages.TWO' or 'SVGImages.THREE' or 'SVGImages.FOUR' or
+        'SVGImages.FIVE' or 'SVGImages.SIX' or 'SVGImages.SEVEN' or 'SVGImages.EIGHT'
+    ]:
+        return {
+            '1': cls.ONE,
+            '2': cls.TWO,
+            '3': cls.THREE,
+            '4': cls.FOUR,
+            '5': cls.FIVE,
+            '6': cls.SIX,
+            '7': cls.SEVEN,
+            '8': cls.EIGHT,
+        }[value]

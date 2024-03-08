@@ -202,7 +202,7 @@
     </property>
     <widget class="QLabel" name="labelHeight">
      <property name="text">
-      <string>Ширина (9-40)    </string>
+      <string>Высота (9-30)      </string>
      </property>
     </widget>
     <widget class="QSpinBox" name="spinBoxHeight">
@@ -240,7 +240,7 @@
       <number>9</number>
      </property>
      <property name="maximum">
-      <number>40</number>
+      <number>30</number>
      </property>
     </widget>
    </widget>
@@ -258,7 +258,7 @@
     </property>
     <widget class="QLabel" name="labelWidth">
      <property name="text">
-      <string>Высота (9-30)      </string>
+      <string>Ширина (9-40)    </string>
      </property>
     </widget>
     <widget class="QSpinBox" name="spinBoxWidth">
@@ -296,7 +296,7 @@
       <number>9</number>
      </property>
      <property name="maximum">
-      <number>30</number>
+      <number>40</number>
      </property>
     </widget>
    </widget>

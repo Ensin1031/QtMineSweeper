@@ -29,14 +29,19 @@
     <set>QDialogButtonBox::Close</set>
    </property>
   </widget>
-  <widget class="QWidget" name="widget" native="true">
+  <widget class="QWidget" name="widgetInfo" native="true">
    <property name="geometry">
     <rect>
      <x>19</x>
      <y>19</y>
-     <width>361</width>
+     <width>360</width>
      <height>221</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </widget>
  </widget>
