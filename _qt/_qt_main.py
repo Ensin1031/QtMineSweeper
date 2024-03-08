@@ -8,7 +8,8 @@ from PyQt5 import uic, QtWidgets, QtCore
 from _db import Connection
 from _qt._qt_menu_frames import ParamsQDialog, HelpGameQDialog, AboutGameQDialog, OtherGamesQDialog
 from utils import (
-    WindowMixin, GameParamsType, BTN_SIZE, FRAME_MARGIN_SIZE, INFO_FRAME_WIDTH, MineButton, iconFromBase64, SVGImages
+    WindowMixin, GameParamsType, BTN_SIZE, FRAME_MARGIN_SIZE, INFO_FRAME_WIDTH, MineButton, iconFromBase64, SVGImages,
+    MAIN_FRAME_COLOR, BTN_CLOSE_COLOR, BTN_OPEN_COLOR, pixmapFromBase64
 )
 
 FormClass, _ = uic.loadUiType('_qt/_qt_designer/_main_window.ui')
@@ -68,21 +69,31 @@ class MainWindow(QtWidgets.QMainWindow, FormClass, WindowMixin):
         self.setupUi(self)
         self.__db_connector = db_connector
         self.__bomb_idx: Tuple = ()
+        self.__game_is_start: bool = False
+        self.__game_is_run: bool = False
 
         self.__icon_size = QtCore.QSize(25, 25)
+
+        self.labelTimeIcon.setPixmap(pixmapFromBase64(SVGImages.TIMER))
+        self.labelMineCountIcon.setPixmap(pixmapFromBase64(SVGImages.MINE))
+
+        self.__timer = QtCore.QTimer()
+        self.__game_time_value: int = 0
 
         self.__create_main_game_frame()
 
     def __create_main_game_frame(self):
         self.frameMainGame = QtWidgets.QFrame(parent=self)
-        self.frameMainGame.setStyleSheet("background-color: #151a21;")
+        self.frameMainGame.setStyleSheet(f"background-color: {MAIN_FRAME_COLOR};")
         self.frameMainGame.setGeometry(FRAME_MARGIN_SIZE, FRAME_MARGIN_SIZE * 2, FRAME_MARGIN_SIZE, FRAME_MARGIN_SIZE)
         self.frameMainGame.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.frameMainGame.show()
 
     def start(self):
 
-        self.frameMainGame.setStyleSheet("background-color: #151a21;")
+        self.frameMainGame.setStyleSheet(f"background-color: {MAIN_FRAME_COLOR};")
+        self.__timer.timeout.connect(self.__timer_event)
+        self.pushButtonPlayOrPause.clicked.connect(self.__play_or_pause)
 
         self.action_01_new_game.triggered.connect(lambda x: self.reboot_game(self.game_settings))
         self.action_02_statistics.triggered.connect(self.__statistics_dialog)
@@ -134,12 +145,23 @@ class MainWindow(QtWidgets.QMainWindow, FormClass, WindowMixin):
         self.frameMainGame.setFixedHeight(self.game_settings.height * BTN_SIZE)
 
         common_height = self.game_settings.height * BTN_SIZE + FRAME_MARGIN_SIZE * 2
+
         self.widgetTime.setGeometry(
             FRAME_MARGIN_SIZE, common_height, INFO_FRAME_WIDTH, BTN_SIZE)
+        self.__game_time_value = 0
+        self.__game_is_start = False
+        self.__game_is_run = False
+        self.lcdNumberTime.setProperty("value", self.__game_time_value)
+        self.__timer.stop()
+
         self.pushButtonPlayOrPause.setGeometry(
             window_width / 2 - BTN_SIZE / 2, common_height, BTN_SIZE, BTN_SIZE)
+        self.pushButtonPlayOrPause.setIcon(iconFromBase64(SVGImages.PLAY))
+        self.pushButtonPlayOrPause.setIconSize(self.__icon_size)
+
         self.widgetMineCount.setGeometry(
             window_width - FRAME_MARGIN_SIZE - INFO_FRAME_WIDTH, common_height, INFO_FRAME_WIDTH, BTN_SIZE)
+        self.lcdNumberMineCount.setProperty("value", settings.mines_count)
 
         self.__create_mines_buttons(settings=settings)
 
@@ -161,7 +183,7 @@ class MainWindow(QtWidgets.QMainWindow, FormClass, WindowMixin):
                 has_bomb=btn_id in self.__bomb_idx
             )
 
-            btn.setStyleSheet("background-color: #3044b5;")
+            btn.setStyleSheet(f"background-color: {BTN_CLOSE_COLOR};")
             btn.setGeometry(BTN_SIZE * (column_index - 1), BTN_SIZE * (row_index - 1), BTN_SIZE, BTN_SIZE)
             btn.show()
             btn_id += 1
@@ -172,32 +194,56 @@ class MainWindow(QtWidgets.QMainWindow, FormClass, WindowMixin):
 
     def __mine_left_click_event(self, btn: MineButton):
         print('__push_left_click ===', btn, btn.has_bomb, btn.bt_id, btn.count_bombs_around)
-        if not btn.has_flag:
-            btn.setCheckable(True)
-            btn.is_empty_pressed = True
-            if btn.has_bomb:
-                btn.setIcon(iconFromBase64(SVGImages.MINE))
-                btn.setIconSize(self.__icon_size)
-                self.game_over(fail=True)
-            elif btn.count_bombs_around > 0:
-                btn.setIcon(btn.number_icon)
-                btn.setIconSize(self.__icon_size)
-                btn.setStyleSheet('background-color: #bac6dc;')
-            else:
-                btn.setStyleSheet('background-color: #bac6dc;')
-                btn.update_btn_neighbors()
+        self.__play_or_pause(need_run=True)
+        btn.is_empty_pressed = True
+        btn.setStyleSheet(f'background-color: {BTN_OPEN_COLOR};')
+        if btn.has_bomb:
+            btn.setIcon(iconFromBase64(SVGImages.MINE))
+            btn.setIconSize(self.__icon_size)
+            self.game_over(fail=True)
+        elif btn.count_bombs_around > 0:
+            btn.set_btn_count()
+        else:
+            btn.update_btn_neighbors()
+
+        self.__check_all_buttons()
 
     def __mine_right_click_event(self, btn: MineButton):
         print('__push_right_click ===', btn, btn.has_bomb, btn.bt_id, btn.count_bombs_around)
-        btn.setIcon(iconFromBase64(SVGImages.FLAG_RED))
-        btn.setIconSize(self.__icon_size)
-        btn.has_flag = True
-        btn.is_empty_pressed = True
-        # TODO завязать на логику подсчета выявленных мин
+        self.__play_or_pause(need_run=True)
+        if btn.has_flag:
+            btn.setIcon(iconFromBase64(""))
+            btn.setIconSize(self.__icon_size)
+            btn.has_flag = False
+            btn.is_empty_pressed = False
+        else:
+            btn.setIcon(iconFromBase64(SVGImages.FLAG_RED))
+            btn.setIconSize(self.__icon_size)
+            btn.has_flag = True
+            btn.is_empty_pressed = True
+
+        self.lcdNumberMineCount.setProperty("value", self.game_settings.mines_count - self.__count_buttons_by_flag)
 
     def __mine_middle_click_event(self, btn: MineButton):
         # TODO логика открытия соседних кнопок
         print('__push_middle_click ===', btn, btn.has_bomb, btn.bt_id, btn.count_bombs_around)
+        self.__play_or_pause(need_run=True)
+
+    def __check_all_buttons(self) -> None:
+        # FIXME костыль
+        failed_btns = tuple(filter(
+            lambda x: isinstance(x, MineButton) and x.is_empty_pressed and not x.isChecked() and not x.has_flag,
+            self.frameMainGame.children()
+        ))
+        for btn in failed_btns:
+            btn.setDown(True)
+
+    @property
+    def __count_buttons_by_flag(self) -> int:
+        return len(tuple(filter(
+            lambda x: isinstance(x, MineButton) and x.is_empty_pressed and x.has_flag,
+            self.frameMainGame.children()
+        )))
 
     def __set_mine_button_configurations(self, btn: MineButton, settings: GameParamsType) -> None:
         """ Установка данных у кнопки игрового поля """
@@ -267,6 +313,34 @@ class MainWindow(QtWidgets.QMainWindow, FormClass, WindowMixin):
         print('game over')
         # TODO логика завершения игры
 
+    def __play_or_pause(self, need_run: bool = False):
+
+        if self.__game_is_start and self.__game_is_run and need_run:
+            return
+
+        if not self.__game_is_start:
+            self.__game_is_run = False
+
+        if not self.__game_is_run or need_run:
+            self.pushButtonPlayOrPause.setIcon(iconFromBase64(SVGImages.PAUSE))
+            self.pushButtonPlayOrPause.setIconSize(self.__icon_size)
+            self.__timer.start(1000)
+            self.__game_is_run = True
+        else:
+            self.pushButtonPlayOrPause.setIcon(iconFromBase64(SVGImages.PLAY))
+            self.pushButtonPlayOrPause.setIconSize(self.__icon_size)
+            self.__timer.stop()
+            self.__game_is_run = False
+
+        if not self.__game_is_start:
+            self.__game_is_start = True
+
+    def __timer_event(self) -> None:
+        if self.__game_time_value == 9999:
+            return
+        self.__game_time_value += 1
+        self.lcdNumberTime.setProperty("value", self.__game_time_value)
+
     def __params_dialog(self):
         params_dialog = ParamsQDialog(parent=self, game_settings_method=self.reboot_game)
         params_dialog.program_version = self.program_version
@@ -302,9 +376,3 @@ class MainWindow(QtWidgets.QMainWindow, FormClass, WindowMixin):
         other_games_dialog.program_version = self.program_version
         other_games_dialog.game_settings = self.game_settings
         other_games_dialog.start()
-
-    def __pushButton(self, pb: QtWidgets.QPushButton):
-        print('__pushButton ===', self.game_settings, pb)
-        print('__bomb_idx ===', self.__bomb_idx)
-        print('action_03_params.__dir__() ===', self.action_03_params.__dir__())
-        print('action_03_params.isCheckable() ===', self.action_03_params.isCheckable())

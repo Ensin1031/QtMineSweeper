@@ -4,7 +4,7 @@ from typing import Optional, Tuple
 from PyQt5 import QtWidgets, QtCore, Qt, QtGui
 
 from ._svg_images import SVGImages
-from ._types import GameParamsType
+from ._types import GameParamsType, BTN_OPEN_COLOR, BTN_SIZE
 
 
 def iconFromBase64(base_64: str) -> QtGui.QIcon:
@@ -12,6 +12,14 @@ def iconFromBase64(base_64: str) -> QtGui.QIcon:
     pixmap = QtGui.QPixmap()
     pixmap.loadFromData(QtCore.QByteArray.fromBase64(svg_base64_str), "SVG")
     return QtGui.QIcon(pixmap)
+
+
+def pixmapFromBase64(base_64: str) -> QtGui.QPixmap:
+    svg_base64_str = b64encode(base_64.encode('utf-8'))
+    pixmap = QtGui.QPixmap()
+    pixmap.loadFromData(QtCore.QByteArray.fromBase64(svg_base64_str), "SVG")
+    result_pixmap = pixmap.scaled(BTN_SIZE, BTN_SIZE)
+    return result_pixmap
 
 
 class WindowMixin:
@@ -82,6 +90,8 @@ class MineButton(QtWidgets.QPushButton):
     right_click = QtCore.pyqtSignal()
     middle_click = QtCore.pyqtSignal()
 
+    icon_size = QtCore.QSize(25, 25)
+
     def __init__(
             self,
             parent: QtWidgets.QFrame,
@@ -129,12 +139,22 @@ class MineButton(QtWidgets.QPushButton):
         self.right_click.connect(lambda: right_click_func(btn=self))
         self.middle_click.connect(lambda: middle_click_func(btn=self))
 
-    def mousePressEvent(self, event):
-        if self.is_empty_pressed:
-            return
+        self.setCheckable(True)
+        self.setChecked(False)
+
+    def __down_checked_btn(self):
+        if not self.isChecked():
+            self.setDown(True)
+
+    def mousePressEvent(self, event: QtGui.QMouseEvent):
         if event.button() == Qt.Qt.LeftButton:
+            if self.is_empty_pressed:
+                return
+            self.__down_checked_btn()
             self.left_click.emit()
         elif event.button() == Qt.Qt.RightButton:
+            if self.is_empty_pressed and not self.has_flag:
+                return
             self.right_click.emit()
         elif event.button() == Qt.Qt.MidButton:
             self.middle_click.emit()
@@ -162,7 +182,19 @@ class MineButton(QtWidgets.QPushButton):
             return QtGui.QIcon('')
         return iconFromBase64(SVGImages().get_number_icon(value=str(self.count_bombs_around)))
 
+    def set_btn_count(self):
+        self.setStyleSheet(f'background-color: {BTN_OPEN_COLOR};')
+        self.setIcon(self.number_icon)
+        self.setIconSize(self.icon_size)
+
     def update_btn_neighbors(self):
-        self.setStyleSheet('background-color: #bac6dc;')
+        self.setDown(True)
+        if self.count_bombs_around > 0:
+            self.set_btn_count()
+            return
+        self.setStyleSheet(f'background-color: {BTN_OPEN_COLOR};')
         self.is_empty_pressed = True
-        # TODO логика рекурсивного обхода соседних кнопок
+        for btn in self.neighbors_collection:
+            if btn is None or btn.has_bomb or btn.has_flag or btn.is_empty_pressed:
+                continue
+            btn.update_btn_neighbors()
